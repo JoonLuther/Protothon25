@@ -24,10 +24,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex flex-col min-h-screen">
+        {/* Header */}
+        <header className="bg-gray-800 text-white py-4 px-6">
+          <h1 className="text-xl font-bold">My Website</h1>
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">{children}</main>
+
+        {/* Footer */}
+        <footer className="bg-gray-800 text-white py-4 text-center">
+          <p>&copy; {new Date().getFullYear()} My Website</p>
+        </footer>
+        </div>
+        {/* {children} */}
       </body>
     </html>
   );
