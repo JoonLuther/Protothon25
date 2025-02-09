@@ -7,7 +7,7 @@ let studentsDb = [
     {
       id: 2,
       name: "Amina Ahmed",
-      classes: ["Biology 201", "Chemistry 202", "Physics 203", "Literature 204"],
+      classes: ["Biology 201", "Chemistry 202", "Physics 203", "Literature 204", "Data Structures 205"],
     },
   ];
   

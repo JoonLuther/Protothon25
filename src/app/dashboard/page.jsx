@@ -17,11 +17,11 @@ export default function Home() {
   }, []);
 
   const subjects = [
-    { name: "Biology", image: "/images/bio.jpg", link: "/biology" },
-    { name: "Macro Economics", image: "/images/econ.jpg", link: "/biology" },
-    { name: "Data Structures", image: "/images/data.jpeg", link: "/biology" },
-    { name: "Feminist Literature", image: "/images/fem.jpeg", link: "/feminist-literature" },
-    { name: "Introduction to Econ", image: "/images/intro.jpg", link: "/feminist-literature" },
+    { name: "Biology", image: "/images/bio.jpg", link: "/biology", course:"BIO B201" },
+    { name: "Chemistry", image: "/images/econ.jpg", link: "/chemistry", course:"CHEM B202" },
+    { name: "Physics", image: "/images/data.jpeg", link: "/physics", course: "PHYS B203" },
+    { name: "Literature", image: "/images/fem.jpeg", link: "/literature", course: "ENGL H204" },
+    { name: "Data Structures", image: "/images/intro.jpg", link: "/data-structures", course: "CMSC H205" },
   ];
 
   return (
@@ -57,15 +57,16 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
           {subjects.map((subject, index) => (
             <Link key={index} href={subject.link} className="relative group">
-              <div className="relative w-80 h-52 rounded-xl overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300 shadow-lg border border-gray-300">
-                <img
+              <div className="relative w-80 h-40 rounded-xl overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300 shadow-lg border border-gray-300">
+                {/* <img
                   src={subject.image}
                   alt={subject.name}
                   className="w-full h-full object-cover"
-                />
+                /> */}
                 {/* Text Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/60 transition duration-300">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 group-hover:bg-black/60 transition duration-300">
                   <h2 className="text-2xl font-bold text-white">{subject.name}</h2>
+                  <h4 className="text-lg font-semibold text-white">{subject.course}</h4>
                 </div>
               </div>
             </Link>

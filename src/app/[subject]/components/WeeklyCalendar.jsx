@@ -1,43 +1,47 @@
-import { useState } from "react";
+"use client";
 
+import { useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import Link from "next/link";
 
 const events = [
-  { day: "Monday", start: "09:00", end: "10:30", title: "TA Office Hours" },
-  { day: "Wednesday", start: "13:00", end: "14:30", title: "Professor Office Hours" },
-  { day: "Friday", start: "16:00", end: "18:00", title: "TA Office Hours" }
+  { id: "1", title: "TA Office Hours", start: "2025-02-10T09:00:00", end: "2025-02-10T10:30:00" },
+  { id: "2", title: "Professor Office Hours", start: "2025-02-12T13:00:00", end: "2025-02-12T14:30:00" },
+  { id: "3", title: "TA Office Hours", start: "2025-02-14T16:00:00", end: "2025-02-14T18:00:00" },
 ];
 
-const hours = Array.from({ length: 15 }, (_, i) => 8 + i);
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export default function BiologyCalendar() {
+  const [currentEvents, setCurrentEvents] = useState(events);
 
-export default function WeeklyCalendar() {
   return (
-    <div className="w-full p-4 overflow-x-auto">
-      <h1 className="text-2xl font-bold mb-4">Weekly Calendar</h1>
-      <div className="grid grid-cols-8 border">
-        <div className="border p-2 font-bold">Time</div>
-        {days.map((day) => (
-          <div key={day} className="border p-2 font-bold text-center">{day}</div>
-        ))}
-        {hours.map((hour) => (
-          <>
-            <div key={hour} className="border p-2 text-center">{hour}:00</div>
-            {days.map((day) => {
-              const event = events.find(
-                (e) => e.day === day && parseInt(e.start) === hour
-              );
-              return (
-                <div key={`${day}-${hour}`} className="border p-2 h-16 relative">
-                  {event && (
-                    <div className="absolute inset-0 bg-blue-500 text-white p-1 text-sm rounded">
-                      {event.title} ({event.start}-{event.end})
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </>
-        ))}
+    <div className="flex flex-col h-screen w-full">
+      {/* Page Title */}
+      {/* <h1 className="text-4xl font-bold text-center mt-6 mb-4">Biology Calendar</h1> */}
+
+      {/* Full-Screen Calendar (with scrolling inside) */}
+      <div className="flex-1 overflow-y-auto px-4">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: "prev,next",
+            center: "title",
+            right:"",
+          }}
+
+          initialView="timeGridWeek"
+          editable={true}
+          selectable={true}
+          dayMaxEvents={true}
+          weekends={true}
+          initialEvents={currentEvents}
+          height="100%"
+          slotMinTime="08:00:00" // Start from 8 AM
+          slotMaxTime="22:00:00" // End at 10 PM
+          allDaySlot={false} // Remove the "All Day" section
+        />
       </div>
     </div>
   );

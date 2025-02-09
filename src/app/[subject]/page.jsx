@@ -2,15 +2,15 @@
 // import WeeklyCalendar from "./components/BiologyCalendar";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import BiologyCalendar from "./components/BiologyCalendar";
+import BiologyCalendar from "./components/WeeklyCalendar";
 
 // Simulated database of subjects
 const subjects = {
     "biology": "Biology",
     "chemistry": "Chemistry",
     "physics": "Physics",
-    "mathematics": "Mathematics",
-    "feminist-literature": "Feminist Literature"
+    "literature": "Literature",
+    "data-structures": "Data Structures"
 };
 
 export default function SubjectPage() {

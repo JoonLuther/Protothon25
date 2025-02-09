@@ -30,9 +30,13 @@ export default function RootLayout({
           {/* Show Navbar only if NOT on the login page */}
           {showNavbar && (
             <header className="bg-gray-800 text-white py-4 px-6 flex justify-between items-center">
-              <Link href="/dashboard">
-                <h1 className="text-xl font-bold cursor-pointer hover:text-gray-300">Dashboard</h1>
-              </Link>
+
+              <div className="flex items-center gap-4">
+                <span className="text-lg font-semibold">TriQ</span>
+                <Link href="/dashboard">
+                  <h1 className="text-xl font-bold cursor-pointer hover:text-gray-300">Dashboard</h1>
+                </Link>
+              </div>
               <Link href="/profile">
                 <h1 className="text-xl font-bold cursor-pointer hover:text-gray-300">My Profile</h1>
               </Link>
