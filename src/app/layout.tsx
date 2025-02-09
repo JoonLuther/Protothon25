@@ -28,10 +28,17 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="flex flex-col min-h-screen">
         {/* Header */}
-        <header className="bg-gray-800 text-white py-4 px-6">
+        
+        <header className="bg-gray-800 text-white py-4 px-6 navbar">
+
           <Link href="/">
             <h1 className="text-xl font-bold">OHQ</h1>
           </Link>
+
+          <Link href="/login">
+            <h1 className="text-xl font-bold">Account</h1>
+          </Link>
+
         </header>
 
         {/* Main Content */}

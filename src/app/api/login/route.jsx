@@ -10,34 +10,42 @@ let loginDb = [
         id: 2
     }
 ];
+
+let loggedIn = false;
+let userId = null;
   
   export async function POST(req) {
     try {
-      const { username, password } = await req.json();
-  
-      const user = loginDb.find(
-        (u) => u.username === username && u.password === password
-      );
-  
-      if (!user) {
-        return new Response(JSON.stringify({ message: "Invalid credentials" }), {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-  
-      return new Response(
-        JSON.stringify({ message: "Login successful", userId: user.id }),
-        {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
+        const { username, password } = await req.json();
+    
+        const user = loginDb.find(
+            (u) => u.username === username && u.password === password
+        );
+    
+        if (!user) {
+            return new Response(JSON.stringify({ message: "Invalid credentials" }), {
+            status: 401,
+            headers: { "Content-Type": "application/json" },
+            });
         }
-      );
+
+        loggedIn = true;
+        userId = user.id;
+    
+        return new Response(
+            JSON.stringify({ message: "Login successful", userId: user.id }),
+            {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+            }
+        );
     } catch (error) {
-      return new Response(JSON.stringify({ message: "Error processing request" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+        loggedIn = false;
+        userId = null;
+        return new Response(JSON.stringify({ message: "Error processing request" }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+        });
     }
-  }
+}
   
