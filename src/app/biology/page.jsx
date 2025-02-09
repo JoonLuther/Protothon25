@@ -1,16 +1,7 @@
 "use client";
-import WeeklyCalendar from "../components/WeeklyCalendar";
-import Link from "next/link";
 
+import BiologyCalendar from "../components/BiologyCalendar";
 
 export default function BiologyPage() {
-    return (
-        <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-bold mb-6">Biology</h1>
-        <Link href={"/biology/queue"}>
-            <button className="redirect-button">Ask a question</button>
-        </Link>
-        <WeeklyCalendar />
-        </div>
-    );
+    return <BiologyCalendar />;
 }
