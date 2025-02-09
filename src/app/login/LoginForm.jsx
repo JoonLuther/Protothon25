@@ -9,19 +9,38 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
     
-    if (!username || !password) {
-      setError("Both fields are required");
-      return;
-    }
+  //   if (!username || !password) {
+  //     setError("Both fields are required");
+  //     return;
+  //   }
 
-    // Simulate authentication (Replace with API call)
-    if (username === "admin" && password === "password") {
-      router.push("/"); // Redirect after login
-    } else {
-      setError("Invalid credentials");
+  //   // Simulate authentication (Replace with API call)
+  //   if (username === "admin" && password === "password") {
+  //     router.push("/"); // Redirect after login
+  //   } else {
+  //     setError("Invalid credentials");
+  //   }
+  // };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json();
+    // setMessage(data.message);
+
+    if (res.ok) {
+      // Redirect user or store session (future improvements)
+      console.log("User ID:", data.userId);
+      router.push("/");
     }
   };
 
@@ -32,7 +51,7 @@ export default function LoginForm() {
         
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-sm font-medium">Username</label>
             <input
