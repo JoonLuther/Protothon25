@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -8,6 +8,18 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const router = useRouter();
+
+    useEffect(() => {
+        // Ensure no scrolling
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            // Reset overflow when leaving the page
+            document.documentElement.style.overflow = "";
+            document.body.style.overflow = "";
+        };
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -32,15 +44,27 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-200">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-                {error && <p className="text-red-500 text-center">{error}</p>}
+        <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
+            {/* Fixed Fullscreen Background */}
+            <div
+                className="fixed inset-0 bg-no-repeat bg-cover bg-center"
+                style={{
+                    backgroundImage: "url('/images/brynmawr.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat"
+                }}
+            />
+
+            {/* Login Card */}
+            <div className="relative bg-white/95 p-8 rounded-xl shadow-lg w-96 text-center border border-gray-300">
+                <h2 className="text-3xl font-bold text-gray-800 mb-6">Welcome Back</h2>
+                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <form onSubmit={handleLogin} className="flex flex-col">
                     <input
                         type="text"
                         placeholder="Username"
-                        className="p-2 mb-3 border rounded"
+                        className="p-3 mb-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -48,15 +72,18 @@ export default function Login() {
                     <input
                         type="password"
                         placeholder="Password"
-                        className="p-2 mb-3 border rounded"
+                        className="p-3 mb-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                    <button className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
                         Login
                     </button>
                 </form>
+                <p className="text-gray-700 mt-4 text-sm">
+                    Don't have an account? <a href="#" className="underline text-blue-600">Sign up</a>
+                </p>
             </div>
         </div>
     );
