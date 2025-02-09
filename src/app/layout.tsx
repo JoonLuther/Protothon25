@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
         {/* Header */}
         <header className="bg-gray-800 text-white py-4 px-6">
-          <h1 className="text-xl font-bold">My Website</h1>
+          <Link href="/">
+            <h1 className="text-xl font-bold">OHQ</h1>
+          </Link>
         </header>
 
         {/* Main Content */}
@@ -36,7 +39,7 @@ export default function RootLayout({
 
         {/* Footer */}
         <footer className="bg-gray-800 text-white py-4 text-center">
-          <p>&copy; {new Date().getFullYear()} My Website</p>
+          <p>&copy; {new Date().getFullYear()} Bryn Mawr College </p>
         </footer>
         </div>
         {/* {children} */}
