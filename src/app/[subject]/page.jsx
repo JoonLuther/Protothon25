@@ -1,27 +1,33 @@
 "use client";
-import WeeklyCalendar from "../components/WeeklyCalendar";
+// import WeeklyCalendar from "./components/BiologyCalendar";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import BiologyCalendar from "./components/BiologyCalendar";
 
 // Simulated database of subjects
 const subjects = {
-    biology: "Biology",
-    chemistry: "Chemistry",
-    physics: "Physics",
-    mathematics: "Mathematics",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
+    "physics": "Physics",
+    "mathematics": "Mathematics",
+    "feminist-literature": "Feminist Literature"
 };
 
 export default function SubjectPage() {
     const { subject } = useParams(); // Get subject from the dynamic route
-    const subjectName = subjects[subject] || "Unknown Subject";
+    console.log(subject);
+    const subjectName = subjects[subject];
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
-            <h1 className="text-3xl font-bold mb-6">{subjectName}</h1>
-            <Link href={`/${subject}/queue`}>
-                <button className="redirect-button">Ask a question</button>
-            </Link>
-            <WeeklyCalendar />
+            <div className="flex flex-col items-center">
+                <h1 className="text-3xl font-bold mb-6">{subjectName}</h1>
+                <Link href={`/${subject}/queue`}>
+                    <button className="redirect-button">Ask a question</button>
+                </Link>
+            </div>
+            
+            <BiologyCalendar />
         </div>
     );
 }
