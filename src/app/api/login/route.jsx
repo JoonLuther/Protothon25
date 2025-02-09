@@ -1,51 +1,37 @@
+import { cookies } from "next/headers";
+
 let loginDb = [
-    {
-        username: "jluther",
-        password: "password",
-        id: 1
-    },
-    {
-        username: "aahmed1",
-        password: "password",
-        id: 2
-    }
+    { username: "jluther", password: "password", id: 1 },
+    { username: "aahmed1", password: "password", id: 2 },
 ];
 
-let loggedIn = false;
-let userId = null;
-  
-  export async function POST(req) {
+export async function POST(req) {
     try {
         const { username, password } = await req.json();
-    
+
         const user = loginDb.find(
             (u) => u.username === username && u.password === password
         );
-    
+
         if (!user) {
-            return new Response(JSON.stringify({ message: "Invalid credentials" }), {
-            status: 401,
-            headers: { "Content-Type": "application/json" },
-            });
+            return new Response(
+                JSON.stringify({ message: "Invalid credentials" }),
+                { status: 401, headers: { "Content-Type": "application/json" } }
+            );
         }
 
-        loggedIn = true;
-        userId = user.id;
-    
+        // Store login session in a cookie
+        const cookieStore = cookies(); // Await cookies() before using
+        await cookieStore.set("userId", user.id, { path: "/", httpOnly: true });
+        
         return new Response(
             JSON.stringify({ message: "Login successful", userId: user.id }),
-            {
-                status: 200,
-                headers: { "Content-Type": "application/json" },
-            }
+            { status: 200, headers: { "Content-Type": "application/json" } }
         );
     } catch (error) {
-        loggedIn = false;
-        userId = null;
-        return new Response(JSON.stringify({ message: "Error processing request" }), {
-            status: 500,
-            headers: { "Content-Type": "application/json" },
-        });
+        return new Response(
+            JSON.stringify({ message: "Error processing request" }),
+            { status: 500, headers: { "Content-Type": "application/json" } }
+        );
     }
 }
-  
